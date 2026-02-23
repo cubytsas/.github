@@ -9,6 +9,9 @@
 [![Website](https://img.shields.io/badge/cubyt.co-6C3CE1?style=for-the-badge&logo=google-chrome&logoColor=white)](https://cubyt.co)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/cubytsas/)
 [![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/cubytsas)
+[![Facebook](https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white)](https://www.facebook.com/cubytsas/)
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/cubytsas/)
+[![TikTok](https://img.shields.io/badge/TikTok-000000?style=for-the-badge&logo=tiktok&logoColor=white)](https://www.tiktok.com/@cubytsas)
 
 </div>
 
@@ -52,7 +55,7 @@ Cada empresa, sin importar su tamano, merece proteccion de primer nivel. Nuestro
 
 :calendar: **[Agenda una consulta gratuita](https://cubyt.co/#/agendar)** — Te ayudamos a identificar la mejor solucion para tu empresa.
 
-:envelope: hola@cubyt.co
+:envelope: cubytsas@gmail.com
 :globe_with_meridians: [cubyt.co](https://cubyt.co)
 
 ---
