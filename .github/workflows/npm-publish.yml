@@ -1,0 +1,41 @@
+name: Publish npm package
+
+on:
+  workflow_call:
+    inputs:
+      package-directory:
+        description: Directory containing the npm package manifest
+        required: false
+        type: string
+        default: .
+    secrets:
+      NPM_TOKEN:
+        description: npm automation token with publish access to the package scope
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Validate and publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out package repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js and npm registry
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Verify package contents
+        working-directory: ${{ inputs.package-directory }}
+        run: npm pack --dry-run
+
+      - name: Publish package
+        working-directory: ${{ inputs.package-directory }}
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
