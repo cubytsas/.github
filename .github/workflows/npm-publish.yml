@@ -18,6 +18,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   publish:
@@ -48,13 +49,13 @@ jobs:
         id: verify
         working-directory: ${{ inputs.package-directory }}
         run: |
-          npm test
+          npm test --if-present
           npm pack --dry-run
 
       - name: Publish package
         id: publish
         working-directory: ${{ inputs.package-directory }}
-        run: npm publish --access public
+        run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
