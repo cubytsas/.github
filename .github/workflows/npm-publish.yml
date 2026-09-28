@@ -35,10 +35,21 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org
 
+      - name: Install package dependencies
+        working-directory: ${{ inputs.package-directory }}
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --ignore-scripts --no-audit --no-fund
+          else
+            npm install --ignore-scripts --no-audit --no-fund
+          fi
+
       - name: Verify package contents
         id: verify
         working-directory: ${{ inputs.package-directory }}
-        run: npm pack --dry-run
+        run: |
+          npm test
+          npm pack --dry-run
 
       - name: Publish package
         id: publish
