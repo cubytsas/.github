@@ -12,6 +12,9 @@ on:
       NPM_TOKEN:
         description: npm automation token with publish access to the package scope
         required: true
+      CUBYT_DEPLOY_WEBHOOK:
+        description: Optional Discord webhook for package build and publish status notifications
+        required: false
 
 permissions:
   contents: read
@@ -20,6 +23,8 @@ jobs:
   publish:
     name: Validate and publish
     runs-on: ubuntu-latest
+    env:
+      CUBYT_DEPLOY_WEBHOOK: ${{ secrets.CUBYT_DEPLOY_WEBHOOK }}
     steps:
       - name: Check out package repository
         uses: actions/checkout@v4
@@ -31,11 +36,25 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - name: Verify package contents
+        id: verify
         working-directory: ${{ inputs.package-directory }}
         run: npm pack --dry-run
 
       - name: Publish package
+        id: publish
         working-directory: ${{ inputs.package-directory }}
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Report package build and publish to Discord
+        if: always() && env.CUBYT_DEPLOY_WEBHOOK != ''
+        continue-on-error: true
+        uses: CubytsAS/package-build-info/.github/actions/notify-discord@v1.0.0
+        with:
+          webhook-url: ${{ secrets.CUBYT_DEPLOY_WEBHOOK }}
+          app: ${{ github.repository }} npm package
+          environment: production
+          build-status: ${{ steps.verify.outcome }}
+          deploy-status: ${{ steps.publish.outcome }}
+          deployment-url: https://www.npmjs.com/package/${{ github.event.repository.name }}
